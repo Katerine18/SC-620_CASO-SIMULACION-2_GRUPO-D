@@ -6,11 +6,11 @@ public class PlayerController2D : MonoBehaviour
 {
     private int ANIMATION_SPEED;
     private int ANIMATION_FORCE;
+    private int ANIMATION_FALL;
     private int ANIMATION_WALK;
     private int ANIMATION_RUN;
     private int ANIMATION_ATTACK;
     private int ANIMATION_RELEASE;
-    private int ANIMATION_FALL;
     private int ANIMATION_PAIN;
     private int ANIMATION_DIE;
 
@@ -56,11 +56,11 @@ public class PlayerController2D : MonoBehaviour
 
         ANIMATION_SPEED = Animator.StringToHash("speed");
         ANIMATION_FORCE = Animator.StringToHash("force");
+        ANIMATION_FALL = Animator.StringToHash("fall");
         ANIMATION_WALK = Animator.StringToHash("walk");
         ANIMATION_RUN = Animator.StringToHash("run");
         ANIMATION_ATTACK = Animator.StringToHash("attack");
         ANIMATION_RELEASE = Animator.StringToHash("release");
-        ANIMATION_FALL = Animator.StringToHash("fall");
         ANIMATION_PAIN = Animator.StringToHash("pain");
         ANIMATION_DIE = Animator.StringToHash("die");
     }
