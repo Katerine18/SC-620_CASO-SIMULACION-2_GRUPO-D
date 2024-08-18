@@ -14,8 +14,8 @@ TagManager:
   - Ground
   - Obstacle
   - Walking Object
-  - 
-  - 
+  - Lejano
+  - Medio
   - 
   - 
   - 
@@ -40,4 +40,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Lejano
+    uniqueID: 2944568835
+    locked: 0
+  - name: Medio
+    uniqueID: 3602971961
     locked: 0
