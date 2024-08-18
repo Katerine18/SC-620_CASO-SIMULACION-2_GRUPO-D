@@ -9,7 +9,7 @@ public class PlayerController2D : MonoBehaviour
     private int ANIMATION_FALL;
     private int ANIMATION_WALK;
     private int ANIMATION_RUN;
-    private int ANIMATION_ATTACK;
+    private int ANIMATION_MELEE;
     private int ANIMATION_RELEASE;
     private int ANIMATION_PAIN;
     private int ANIMATION_DIE;
@@ -36,6 +36,16 @@ public class PlayerController2D : MonoBehaviour
     [SerializeField]
     bool isFacingRight;
 
+    [Header("Attack")]
+    [SerializeField]
+    Transform meleePoint;
+
+    [SerializeField]
+    float meleeRadius;
+
+    [SerializeField]
+    LayerMask attackMask;
+
     Rigidbody2D _rigidbody;
     Animator _animator;
 
@@ -59,7 +69,7 @@ public class PlayerController2D : MonoBehaviour
         ANIMATION_FALL = Animator.StringToHash("fall");
         ANIMATION_WALK = Animator.StringToHash("walk");
         ANIMATION_RUN = Animator.StringToHash("run");
-        ANIMATION_ATTACK = Animator.StringToHash("attack");
+        ANIMATION_MELEE = Animator.StringToHash("melee");
         ANIMATION_RELEASE = Animator.StringToHash("release");
         ANIMATION_PAIN = Animator.StringToHash("pain");
         ANIMATION_DIE = Animator.StringToHash("die");
@@ -195,5 +205,36 @@ public class PlayerController2D : MonoBehaviour
         yield return new WaitUntil(() => !IsGrounded());
         yield return new WaitUntil(() => IsGrounded());
         _isGrounded = true;
+    }
+
+    public void Melee()
+    {
+        _animator.SetTrigger(ANIMATION_MELEE);
+    }
+
+    public void Melee(float damage, bool isPercentage)
+    {
+        Collider2D[] colliders =
+            Physics2D.OverlapCircleAll(meleePoint.position, meleeRadius, attackMask);
+
+        foreach (Collider2D collider in colliders)
+        {
+            DamageableController controller = collider.GetComponent<DamageableController>();
+            if (controller == null)
+            {
+                continue;
+            }
+
+            controller.TakeDamage(damage, isPercentage);
+        }
+    }
+
+    private void OnDrawGizmos() //Dibuja un cuadrado rojo donde esta el Ground Check
+    {
+        if (groundCheck != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
+        }
     }
 }
