@@ -373,7 +373,7 @@ Transform:
   m_GameObject: {fileID: 693491996}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -396,7 +396,7 @@ MonoBehaviour:
   player: {fileID: 989992121}
   speed: 2
   agroRange: 5.5
-  grounCheck: {fileID: 1142897102}
+  groundCheck: {fileID: 1142897102}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -432,8 +432,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.35653162, y: -1.188116}
-  m_Size: {x: 1.1832311, y: 2.0891063}
+  m_Offset: {x: -0.35653162, y: -1.1273552}
+  m_Size: {x: 1.1832311, y: 1.9675848}
   m_Direction: 0
 --- !u!50 &693492000
 Rigidbody2D:

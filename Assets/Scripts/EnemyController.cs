@@ -15,7 +15,7 @@ public class EnemyController : MonoBehaviour
     float agroRange;
 
     [SerializeField]
-    Transform grounCheck;
+    Transform groundCheck;
 
     [SerializeField]
     LayerMask groundLayer;
@@ -45,7 +45,7 @@ public class EnemyController : MonoBehaviour
     private void Update()
     {
         float distToPlayer = Vector2.Distance(transform.position, player.position);
-        //print("distToPlayer: " + distToPlayer);
+        //print("distToPlayer: " + distToPlayer); para revisar distancia
 
         if (distToPlayer < agroRange)
         {
@@ -54,16 +54,42 @@ public class EnemyController : MonoBehaviour
         else
         {
             StopAgroPlayer();
-            ReturnOriginalPosition();
+            //ReturnOriginalPosition();
         }
 
         _animator.SetFloat(ANIMATION_SPEED, Mathf.Abs(_rigidbody.velocity.x));
     }
 
+    private void FixedUpdate()
+    {
+        RaycastHit2D raycastHit = Physics2D.Raycast(groundCheck.position, Vector2.down, 0.40F, groundLayer);
+
+        if (!raycastHit)
+        {
+            _rigidbody.velocity = Vector2.zero;
+        }
+        else
+        {
+            if (ShouldAgroPlayer())
+            {
+                Vector2 direction = (player.position - transform.position).normalized;
+                _rigidbody.velocity = new Vector2(direction.x * speed, _rigidbody.velocity.y);
+
+                transform.localScale = new Vector2(Mathf.Sign(direction.x), 1);
+            }
+        }
+
+    }
+
+    private bool ShouldAgroPlayer()
+    {
+        float distToPlayer = Vector2.Distance(transform.position, player.position);
+        return distToPlayer <agroRange;
+    }
 
     private void AgroPlayer()
     {
-        bool isGrounded = Physics2D.OverlapCircle(grounCheck.position, groundCheckRadius, groundLayer);
+        bool isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
         
 
