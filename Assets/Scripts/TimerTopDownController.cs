@@ -12,6 +12,7 @@ public class TimerTopDownController : MonoBehaviour
     Image timer;
 
     private PlayerMovementTopDown _player;
+    public LevelManager LevelManager;
 
     private float _currentTime;
 
@@ -31,7 +32,7 @@ public class TimerTopDownController : MonoBehaviour
 
         if (_currentTime <= 0.0F)
         {
-            //Pantalla de "You Win"
+            LevelManager.GameWinnerLevel();
             enabled = false;
             return;
         }

@@ -30,7 +30,7 @@ public class TimerController : MonoBehaviour
 
         if (_currentTime <= 0.0F)
         {
-            SceneManager.LoadScene("Win");
+            //SceneManager.LoadScene("Win");
             enabled = false;
             return;
         }

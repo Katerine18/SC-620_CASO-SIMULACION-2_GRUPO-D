@@ -1128,7 +1128,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.9003215, y: -23.90762, z: -10.008019}
+  m_LocalPosition: {x: -3.9003196, y: -23.90911, z: -10.008019}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1745,7 +1745,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: Theme
-    audio: {fileID: 8300000, guid: d0d561c0c53d94849b03855cfde29c8e, type: 3}
+    audio: {fileID: 8300000, guid: 32a2858a1b1041945a7be59847796844, type: 3}
   - name: Shot
     audio: {fileID: 8300000, guid: f3955dcf7b935164688feeb733663c82, type: 3}
   - name: Melee
@@ -22022,8 +22022,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe08858c3bf1793488b2d757a1d91bd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTime: 30
+  maxTime: 15
   timer: {fileID: 555291213}
+  LevelManager: {fileID: 8829938952947078048, guid: d354804acf1ca9e47a745b04bad7c206, type: 3}
 --- !u!1 &2027206378
 GameObject:
   m_ObjectHideFlags: 0

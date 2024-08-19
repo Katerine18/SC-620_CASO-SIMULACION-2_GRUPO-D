@@ -9,7 +9,7 @@ public class PortalController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            SceneManager.LoadScene("TOPDOWN");
+            LevelManager.Next();
         }
     }
 }

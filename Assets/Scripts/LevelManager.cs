@@ -35,7 +35,7 @@ public class LevelManager : MonoBehaviour
     }
     public void Next()
     {
-        SceneManager.LoadScene("TOPDOWN");
+        SceneManager.LoadScene("TOP DOWN");
     }
 
     public void GameWinnerLevel()
