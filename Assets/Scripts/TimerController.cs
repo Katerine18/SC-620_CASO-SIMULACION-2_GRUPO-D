@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TimerController : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class TimerController : MonoBehaviour
 
         if (_currentTime <= 0.0F)
         {
-            //_player.Die();
+            SceneManager.LoadScene("Win");
             enabled = false;
             return;
         }
@@ -37,3 +38,4 @@ public class TimerController : MonoBehaviour
         timer.fillAmount = _currentTime / maxTime;
     }
 }
+
