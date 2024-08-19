@@ -12,6 +12,7 @@ public class PlayerController2D : MonoBehaviour
     private int ANIMATION_MELEE;
     private int ANIMATION_RELEASE;
     private int ANIMATION_DIE;
+    private int ANIMATION_FIRE;
 
     [Header("Movement")]
     [SerializeField]
@@ -45,6 +46,15 @@ public class PlayerController2D : MonoBehaviour
     [SerializeField]
     LayerMask attackMask;
 
+    [SerializeField]
+    GameObject projectilePrefab;
+
+    [SerializeField]
+    Transform projectilePoint;
+
+    [SerializeField]
+    float projectileLifeTime;
+
     [Header("Die")]
     [SerializeField]
     float dieTime;
@@ -75,6 +85,7 @@ public class PlayerController2D : MonoBehaviour
         ANIMATION_MELEE = Animator.StringToHash("melee");
         ANIMATION_RELEASE = Animator.StringToHash("release");
         ANIMATION_DIE = Animator.StringToHash("die");
+        ANIMATION_FIRE = Animator.StringToHash("fire");
     }
 
     private void Start()
@@ -237,6 +248,20 @@ public class PlayerController2D : MonoBehaviour
 
             controller.TakeDamage(damage, isPercentage);
         }
+    }
+
+    public void Fire()
+    {
+        _animator.SetTrigger(ANIMATION_FIRE);
+    }
+
+    public void Fire(float damage, bool isPercentage)
+    {
+        GameObject projectile =
+            Instantiate(projectilePrefab, projectilePoint.position, transform.rotation);
+        ProjectileController controller = projectile.GetComponent<ProjectileController>();
+            controller.Go(damage, isPercentage);       
+        Destroy(projectile, projectileLifeTime);
     }
 
     private DestroyController _killEnemy;

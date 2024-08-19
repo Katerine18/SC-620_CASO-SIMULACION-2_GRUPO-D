@@ -527,6 +527,7 @@ GameObject:
   - component: {fileID: 693492000}
   - component: {fileID: 693491999}
   - component: {fileID: 693491998}
+  - component: {fileID: 693492001}
   m_Layer: 11
   m_Name: Enemy
   m_TagString: Enemy
@@ -633,6 +634,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &693492001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693491996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6c4657919b35f40ab25021e5b486d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
 --- !u!1 &780363210
 GameObject:
   m_ObjectHideFlags: 0
@@ -849,7 +863,7 @@ Transform:
   m_GameObject: {fileID: 786702001}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.0006547, y: 0.5127772, z: -10}
+  m_LocalPosition: {x: -3.0076451, y: 0.5127801, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1180,6 +1194,7 @@ GameObject:
   - component: {fileID: 989992123}
   - component: {fileID: 989992126}
   - component: {fileID: 989992128}
+  - component: {fileID: 989992129}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1271,7 +1286,10 @@ MonoBehaviour:
   meleeRadius: 0.47
   attackMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 2176
+  projectilePrefab: {fileID: 2554693678618232295, guid: 9e22178ca2a24764a86e7c00823ce3bb, type: 3}
+  projectilePoint: {fileID: 2069529462}
+  projectileLifeTime: 5
   dieTime: 3
 --- !u!70 &989992127
 CapsuleCollider2D:
@@ -1318,6 +1336,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e24ce1d37bdbcc4f873f8f060b02288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackRange: 1
+  attackRate: 2
+--- !u!114 &989992129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989992120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c986bf14ef66434fab48e4300655b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackRange: 1
@@ -5167,7 +5199,7 @@ GameObject:
   - component: {fileID: 1819277729}
   - component: {fileID: 1819277730}
   - component: {fileID: 1819277732}
-  - component: {fileID: 1819277731}
+  - component: {fileID: 1819277733}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Untagged
@@ -5242,18 +5274,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1819277731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819277728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e32defcb857b3e459514daf98e8b2f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &1819277732
 Animator:
   serializedVersion: 5
@@ -5275,6 +5295,25 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1819277733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819277728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e32defcb857b3e459514daf98e8b2f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackModes:
+  - name: OnMelee
+    damage: 100
+    isPercentage: 1
+  - name: OnFire
+    damage: 100
+    isPercentage: 1
 --- !u!1 &1872120489
 GameObject:
   m_ObjectHideFlags: 0
@@ -6069,7 +6108,7 @@ Transform:
   m_GameObject: {fileID: 2069529461}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.17, y: 0.3850001, z: 0}
+  m_LocalPosition: {x: 1.317, y: 0.603, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

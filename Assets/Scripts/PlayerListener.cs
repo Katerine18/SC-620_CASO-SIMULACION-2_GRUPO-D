@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerListener : MonoBehaviour
@@ -28,5 +30,11 @@ public class PlayerListener : MonoBehaviour
     {
         AttackMode attackMode = GetAttackMode("OnMelee");
         _character.Melee(attackMode.getDamage(), attackMode.getIsPercentage());
+    }
+
+    public void OnFire()
+    {
+        AttackMode attackMode = GetAttackMode("OnFire");
+        _character.Fire(attackMode.getDamage(), attackMode.getIsPercentage());
     }
 }
