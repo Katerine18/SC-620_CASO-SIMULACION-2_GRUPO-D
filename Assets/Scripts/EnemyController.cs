@@ -29,9 +29,11 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     float dieTime;
 
+    [SerializeField]
+    string dieSoundSFX;
+
     Rigidbody2D _rigidbody;
-    Animator _animator;
-    
+    Animator _animator;    
 
     private Vector2 _originalPosition;
     private bool isReturning = false;
@@ -41,7 +43,6 @@ public class EnemyController : MonoBehaviour
     {
         _animator = GetComponentInChildren<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
-        
 
         ANIMATION_SPEED = Animator.StringToHash("speed");
         ANIMATION_DIE = Animator.StringToHash("die");
@@ -157,14 +158,15 @@ public class EnemyController : MonoBehaviour
 
     public void Die()
     {
-        if(isDead) return;
+        SoundManager.Instance.PlaySFX(dieSoundSFX);
+        if (isDead) return;
         isDead = true;
         StartCoroutine(DieCoroutine());
     }
 
     private IEnumerator DieCoroutine()
-    {
-        _animator.SetTrigger(ANIMATION_DIE);
+    {      
+        _animator.SetTrigger(ANIMATION_DIE);      
         yield return new WaitForSeconds(dieTime);
         Destroy(gameObject);
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

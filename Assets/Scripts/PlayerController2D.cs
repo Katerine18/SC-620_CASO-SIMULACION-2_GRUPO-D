@@ -55,6 +55,12 @@ public class PlayerController2D : MonoBehaviour
     [SerializeField]
     float projectileLifeTime;
 
+    [SerializeField]
+    string fireSoundSFX;
+
+    [SerializeField]
+    string meleeSoundSFX;
+
     [Header("Die")]
     [SerializeField]
     float dieTime;
@@ -231,12 +237,14 @@ public class PlayerController2D : MonoBehaviour
     public void Melee()
     {
         _animator.SetTrigger(ANIMATION_MELEE);
+        SoundManager.Instance.PlaySFX(meleeSoundSFX);
     }
 
     public void Melee(float damage, bool isPercentage)
     {
         Collider2D[] colliders =
             Physics2D.OverlapCircleAll(meleePoint.position, meleeRadius, attackMask);
+        
 
         foreach (Collider2D collider in colliders)
         {
@@ -252,6 +260,7 @@ public class PlayerController2D : MonoBehaviour
 
     public void Fire()
     {
+        SoundManager.Instance.PlaySFX(fireSoundSFX);
         _animator.SetTrigger(ANIMATION_FIRE);
     }
 
@@ -260,7 +269,9 @@ public class PlayerController2D : MonoBehaviour
         GameObject projectile =
             Instantiate(projectilePrefab, projectilePoint.position, transform.rotation);
         ProjectileController controller = projectile.GetComponent<ProjectileController>();
-            controller.Go(damage, isPercentage);       
+            controller.Go(damage, isPercentage, isFacingRight);
+        
+
         Destroy(projectile, projectileLifeTime);
     }
 
@@ -280,6 +291,8 @@ public class PlayerController2D : MonoBehaviour
                 }
                 //Destroy(collision.gameObject);
                 //_rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpForce * 0.5f);
+            } else {
+                Die();
             }
             
         }

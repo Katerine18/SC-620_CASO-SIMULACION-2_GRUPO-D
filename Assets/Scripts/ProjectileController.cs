@@ -18,16 +18,26 @@ public class ProjectileController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    private void OnEnable()
-    {
-        _rigidbody.velocity = Vector2.right * speed * Time.deltaTime;
-    }
-
-    public void Go(float damage, bool isPercentage)
+    //private void OnEnable()
+    //{
+        //_rigidbody.velocity = Vector2.right * speed * Time.deltaTime;
+    //}
+   
+    public void Go(float damage, bool isPercentage, bool isFacingRight)
     {
         _damage = damage;
         _isPercentage = isPercentage;
         gameObject.SetActive(true);
+        if (isFacingRight)
+        {
+            _rigidbody.velocity = Vector2.right * speed * Time.deltaTime;
+            transform.rotation = Quaternion.Euler(0, 0, -90);
+        } else
+        {
+            _rigidbody.velocity = Vector2.right * -speed * Time.deltaTime;
+            transform.rotation = Quaternion.Euler(0, 0, 90);
+        }
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -41,6 +51,10 @@ public class ProjectileController : MonoBehaviour
                     enemy.Die();
                     Destroy(gameObject);
                 }          
+        }
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Destroy(gameObject);
         }
     }
 }

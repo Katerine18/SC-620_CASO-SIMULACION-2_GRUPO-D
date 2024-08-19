@@ -35,7 +35,6 @@ public class DamageableController : MonoBehaviour
                 {
                     enemy.Die();
                 }
-
             }
             else
             {
