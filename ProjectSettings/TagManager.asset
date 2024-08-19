@@ -49,3 +49,12 @@ TagManager:
   - name: Medio
     uniqueID: 3602971961
     locked: 0
+  - name: Arriba
+    uniqueID: 468168165
+    locked: 0
+  - name: background
+    uniqueID: 765821563
+    locked: 0
+  - name: player
+    uniqueID: 60590481
+    locked: 0
