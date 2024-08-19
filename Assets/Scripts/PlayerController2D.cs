@@ -181,19 +181,27 @@ public class PlayerController2D : MonoBehaviour
     }
 
     private void HandleRotate()
+{
+    if (_inputX == 0.0F)
     {
-        if (_inputX == 0.0F)
-        {
-            return;
-        }
-
-        bool facingRight = _inputX > 0.0F;
-        if (isFacingRight != facingRight)
-        {
-            isFacingRight = facingRight;
-            transform.Rotate(0.0F, 180.0F, 0.0F);
-        }
+        return;
     }
+
+    bool facingRight = _inputX > 0.0F;
+    if (isFacingRight != facingRight)
+    {
+        // Guarda la posición actual(igual no sirvio :(
+        Vector3 originalPosition = transform.position;
+        
+        // Realiza la rotación
+        isFacingRight = facingRight;
+        transform.Rotate(0.0F, 180.0F, 0.0F);
+
+        // Restablece la posición para evitar el efecto raro este
+        transform.position = originalPosition;
+    }
+}
+
 
     private bool IsGrounded()
     {
