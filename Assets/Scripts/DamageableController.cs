@@ -5,6 +5,9 @@ public class DamageableController : MonoBehaviour
     [SerializeField]
     float maxHealth;
 
+    [SerializeField]
+    bool isEnemy;
+
     private float _currentHealth;
 
     private void Awake()
@@ -24,7 +27,23 @@ public class DamageableController : MonoBehaviour
         _currentHealth -= damage;
         if (_currentHealth <= 0)
         {
-            Destroy(gameObject);
+            if (isEnemy)
+            {
+                EnemyController enemy = GetComponent<EnemyController>();
+
+                if (enemy != null)
+                {
+                    enemy.Die();
+                }
+
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
         }
     }
+
+
 }
