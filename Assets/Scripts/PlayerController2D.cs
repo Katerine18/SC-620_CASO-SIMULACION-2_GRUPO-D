@@ -245,16 +245,18 @@ public class PlayerController2D : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            GameObject _enemy = collision.gameObject;
+            if(_rigidbody.velocity.y < 0 && transform.position.y > collision.transform.position.y)
+            {
+                EnemyController enemy = collision.gameObject.GetComponent<EnemyController>();
 
-            if (!_isGrounded && !_isJumping)
-            {
-                _killEnemy.AttackEnemy();
+                if (enemy != null)
+                {
+                    enemy.Die();
+                }
+                //Destroy(collision.gameObject);
+                //_rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpForce * 0.5f);
             }
-            else
-            {
-                Die();
-            }
+            
         }
     }
 

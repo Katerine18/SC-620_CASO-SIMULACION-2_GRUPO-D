@@ -31,25 +31,32 @@ public class EnemyController : MonoBehaviour
 
     Rigidbody2D _rigidbody;
     Animator _animator;
+    
 
     private Vector2 _originalPosition;
     private bool isReturning = false;
+    private bool isDead = false;
 
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
+        _rigidbody = GetComponent<Rigidbody2D>();
+        
 
         ANIMATION_SPEED = Animator.StringToHash("speed");
+        ANIMATION_DIE = Animator.StringToHash("die");
     }
 
     private void Start()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
+        
         _originalPosition = transform.position;
     }
 
     private void Update()
     {
+        if(isDead) return; // si esta muerto no hace nada
+
         float distToPlayer = Vector2.Distance(transform.position, player.position);
         //print("distToPlayer: " + distToPlayer); para revisar distancia
 
@@ -68,6 +75,8 @@ public class EnemyController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isDead) return; // si esta muerto no hace nada
+
         RaycastHit2D raycastHit = Physics2D.Raycast(groundCheck.position, Vector2.down, 0.40F, groundMask);
 
         if (!raycastHit)
@@ -148,6 +157,8 @@ public class EnemyController : MonoBehaviour
 
     public void Die()
     {
+        if(isDead) return;
+        isDead = true;
         StartCoroutine(DieCoroutine());
     }
 
@@ -155,6 +166,7 @@ public class EnemyController : MonoBehaviour
     {
         _animator.SetTrigger(ANIMATION_DIE);
         yield return new WaitForSeconds(dieTime);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Destroy(gameObject);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
