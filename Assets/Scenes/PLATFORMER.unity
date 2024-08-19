@@ -427,7 +427,7 @@ Transform:
   m_GameObject: {fileID: 587929495}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.151, y: 1.303, z: 0}
+  m_LocalPosition: {x: 0.98, y: 1.303, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -527,9 +527,9 @@ GameObject:
   - component: {fileID: 693492000}
   - component: {fileID: 693491999}
   - component: {fileID: 693491998}
-  m_Layer: 0
-  m_Name: Enemy1
-  m_TagString: Untagged
+  m_Layer: 11
+  m_Name: Enemy
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -567,9 +567,10 @@ MonoBehaviour:
   speed: 2
   agroRange: 5.5
   groundCheck: {fileID: 1142897102}
-  groundLayer:
+  groundMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
+  dieTime: 0
 --- !u!70 &693491999
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -848,7 +849,7 @@ Transform:
   m_GameObject: {fileID: 786702001}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.0005293, y: 0.5127771, z: -10}
+  m_LocalPosition: {x: -3.0031114, y: 0.51277804, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -900,7 +901,7 @@ GameObject:
   - component: {fileID: 847735222}
   - component: {fileID: 847735221}
   m_Layer: 0
-  m_Name: Delante
+  m_Name: Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1271,6 +1272,7 @@ MonoBehaviour:
   attackMask:
     serializedVersion: 2
     m_Bits: 128
+  dieTime: 0
 --- !u!70 &989992127
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1659,7 +1661,7 @@ Transform:
   m_GameObject: {fileID: 1118434199}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.909001, y: -1.7419999, z: -10}
+  m_LocalPosition: {x: -9.08, y: -1.7419999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5048,7 +5050,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1571171079}
   m_Layer: 0
-  m_Name: Agro
+  m_Name: Aggro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5252,10 +5254,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e32defcb857b3e459514daf98e8b2f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackModes:
-  - name: OnMelee
-    damage: 100
-    isPercentage: 1
 --- !u!95 &1819277732
 Animator:
   serializedVersion: 5

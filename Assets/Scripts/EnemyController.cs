@@ -1,13 +1,16 @@
-using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyController : MonoBehaviour
 {
     private int ANIMATION_SPEED;
+    private int ANIMATION_DIE;
 
     [SerializeField]
     Transform player;
 
+    [Header("Movement")]
     [SerializeField]
     float speed;
 
@@ -18,13 +21,16 @@ public class EnemyController : MonoBehaviour
     Transform groundCheck;
 
     [SerializeField]
-    LayerMask groundLayer;
-
-    Animator _animator;
+    LayerMask groundMask;
 
     float groundCheckRadius;
 
+    [Header("Die")]
+    [SerializeField]
+    float dieTime;
+
     Rigidbody2D _rigidbody;
+    Animator _animator;
 
     private Vector2 _originalPosition;
     private bool isReturning = false;
@@ -62,7 +68,7 @@ public class EnemyController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        RaycastHit2D raycastHit = Physics2D.Raycast(groundCheck.position, Vector2.down, 0.40F, groundLayer);
+        RaycastHit2D raycastHit = Physics2D.Raycast(groundCheck.position, Vector2.down, 0.40F, groundMask);
 
         if (!raycastHit)
         {
@@ -89,17 +95,15 @@ public class EnemyController : MonoBehaviour
 
     private void AgroPlayer()
     {
-        bool isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        bool isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundMask);
 
-        
-
-        if (transform.position.x < player.position.x)//si esta a la izquierda del jugador
+        if (transform.position.x < player.position.x) //si esta a la izquierda del jugador
         {
             _rigidbody.velocity = new Vector2(speed, 0);
             transform.localScale = new Vector2(1, 1); //avatar ve la izquierda
 
         }
-        else if (transform.position.x > player.position.x)  // si esta a la derecha del jugador
+        else if (transform.position.x > player.position.x)  //si esta a la derecha del jugador
         {
             _rigidbody.velocity = new Vector2(-speed, 0);
             transform.localScale = new Vector2(-1, 1);
@@ -140,5 +144,17 @@ public class EnemyController : MonoBehaviour
             transform.position = new Vector2(_originalPosition.x, transform.position.y);
             isReturning = false;
         }
+    }
+
+    public void Die()
+    {
+        StartCoroutine(DieCoroutine());
+    }
+
+    private IEnumerator DieCoroutine()
+    {
+        _animator.SetTrigger(ANIMATION_DIE);
+        yield return new WaitForSeconds(dieTime);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

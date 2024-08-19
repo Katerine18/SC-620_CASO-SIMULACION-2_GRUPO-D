@@ -11,7 +11,6 @@ public class PlayerController2D : MonoBehaviour
     private int ANIMATION_RUN;
     private int ANIMATION_MELEE;
     private int ANIMATION_RELEASE;
-    private int ANIMATION_PAIN;
     private int ANIMATION_DIE;
 
     [Header("Movement")]
@@ -46,6 +45,10 @@ public class PlayerController2D : MonoBehaviour
     [SerializeField]
     LayerMask attackMask;
 
+    [Header("Die")]
+    [SerializeField]
+    float dieTime;
+
     Rigidbody2D _rigidbody;
     Animator _animator;
 
@@ -71,7 +74,6 @@ public class PlayerController2D : MonoBehaviour
         ANIMATION_RUN = Animator.StringToHash("run");
         ANIMATION_MELEE = Animator.StringToHash("melee");
         ANIMATION_RELEASE = Animator.StringToHash("release");
-        ANIMATION_PAIN = Animator.StringToHash("pain");
         ANIMATION_DIE = Animator.StringToHash("die");
     }
 
@@ -227,6 +229,37 @@ public class PlayerController2D : MonoBehaviour
 
             controller.TakeDamage(damage, isPercentage);
         }
+    }
+
+    private DestroyController _killEnemy;
+    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            GameObject _enemy = collision.gameObject;
+
+            if (!_isGrounded && !_isJumping)
+            {
+                _killEnemy.AttackEnemy();
+            }
+            else
+            {
+                Die();
+            }
+        }
+    }
+
+    public void Die()
+    {
+        StartCoroutine(DieCoroutine());
+    }
+
+    private IEnumerator DieCoroutine()
+    {
+        _animator.SetTrigger(ANIMATION_DIE);
+        yield return new WaitForSeconds(dieTime);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void OnDrawGizmos() //Dibuja un cuadrado rojo donde esta el Ground Check
