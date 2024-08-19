@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovementTopDown : MonoBehaviour
 {
@@ -30,4 +32,19 @@ public class PlayerMovementTopDown : MonoBehaviour
     {
         playerRb.MovePosition(playerRb.position + moveInput * speed * Time.fixedDeltaTime);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    
 }
